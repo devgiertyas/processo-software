@@ -10,10 +10,48 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Usuario {
+model usuario {
   id_usuario    Int     @id @default(autoincrement())
   email String  @unique
   nome  String
   senha String
+}
+
+model contato {
+  id_contato   Int     @id @default(autoincrement())
+  nome  String
+  celular String
+  email String
+  mensagem_contato mensagem_contato[]
+}
+
+model mensagem_contato {
+  id_mensagem_contato  Int     @id @default(autoincrement())
+  contato    contato    @relation(fields: [id_contato], references: [id_contato], onDelete: Cascade)
+  id_contato  Int
+  meio_envio String            @db.VarChar(20)
+}
+
+model mensagem {
+  id_mensagem   Int     @id @default(autoincrement())
+  assunto  String
+  conteudo String
+  email String
+  envio envio[]
+  agendamento_mensagem agendamento_mensagem[]
+}
+
+model envio {
+  id_envio   Int     @id @default(autoincrement())
+  id_mensagem Int
+  mensagem    mensagem    @relation(fields: [id_mensagem], references: [id_mensagem],onDelete: Cascade)
+  data_envio DateTime @default(now())
+}
+
+model agendamento_mensagem {
+  id_agendamento_mensagem   Int     @id @default(autoincrement())
+  id_mensagem Int
+  mensagem    mensagem    @relation(fields: [id_mensagem], references: [id_mensagem],onDelete: Cascade)
+  data_envio DateTime 
 }
 
