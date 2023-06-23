@@ -10,6 +10,15 @@ class UsuarioRN {
     return hash.digest('hex');
   }
 
+  async handleLogin(email: string, password: string) {
+    const user = await prisma.usuario.findFirst({where: {
+      email: email,
+      senha: this.criptografy(password)
+    }})
+    
+    return user;
+  }
+
   async getAllUsers() {
     try{
       const users = await prisma.usuario.findMany({select: {
@@ -40,15 +49,6 @@ class UsuarioRN {
     {
       throw error
     }
-  }
-
-  async handleLogin(email: string, password: string) {
-    const user = await prisma.usuario.findFirst({where: {
-      email: email,
-      senha: this.criptografy(password)
-    }})
-    
-    return user;
   }
 
   async createUser(email: string, name: string, password: string) {

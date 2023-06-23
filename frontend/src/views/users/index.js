@@ -16,18 +16,14 @@ import { useNavigate } from "react-router-dom";
 import { userHandleGet } from "rules/userRules";
 
 const Users = () => {
-
   const navigate = useNavigate()
-
+  
   const [listUsers, setListUsers] = useState([])
 
   useEffect(() => {
-
     userHandleGet().then(res => {
       setListUsers(res)
     })
-
-
   },[])
 
     return (
@@ -67,7 +63,6 @@ const Users = () => {
                       )
                     })
                   }
-
                 </tbody>
               </Table>
               <CardFooter className="py-4">
@@ -124,8 +119,7 @@ const Users = () => {
               </CardFooter>
             </Card>
           </div>
-        </Row>
-
+      </Row>
       </Container>
     </Fragment>
     )

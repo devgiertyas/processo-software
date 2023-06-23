@@ -21,7 +21,6 @@ import { userHandleCreate, userHandleGetUser, userHandleUpdate } from "rules/use
 
 const UsersEdit = () => {
   const { openModal } = useContext(ModalContext);
-
     const navigate = useNavigate()
 
     const {id} = useParams()
@@ -32,7 +31,6 @@ const UsersEdit = () => {
     const [confirmPassword, setConfirmPassword] = useState("")
 
     useEffect(() => {
-
       if(parseInt(id))
       {
 
@@ -43,35 +41,29 @@ const UsersEdit = () => {
           }
         )
       }
-
     },[id])
 
-    const handleSaveUser = async () => {
-      
+    const handleSaveUser = async () => {  
       if(!name)
       {
         openModal('Por favor, informe o nome');
         return;
       }
-
       if(!email)
       {
         openModal('Por favor, informe o email');
         return;
       }
-
       if(!password && !id)
       {
         openModal('Por favor, informe a senha');
         return;
       }
-
       if(password !== confirmPassword && !id)
       {
         openModal('As senhas não coincidem.');
         return;
       }
-
       if(parseInt(id))
       {
         userHandleUpdate(parseInt(id), name, email).then(() => {
@@ -79,8 +71,7 @@ const UsersEdit = () => {
         })
       }
       else
-      {
-        
+      {     
         userHandleCreate(name, email, password).then((response) => {
           navigate("/admin/users")
         }).catch((error) => {

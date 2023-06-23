@@ -14,11 +14,13 @@ import {
 import { ModalContext } from "Contexts/ModalContext";
 import ModalError from 'components/Alerts'
 import { userHandleLogin } from "rules/userRules";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { openModal } = useContext(ModalContext);
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const navigate = useNavigate()
 
   const handleLogin = async() => {
     
@@ -35,6 +37,9 @@ const Login = () => {
         openModal('Email ou senha incorretos.');
         return;
       }
+
+      navigate("/admin/users");
+      
   }
 
   return (
