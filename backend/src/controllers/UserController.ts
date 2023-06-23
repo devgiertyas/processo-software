@@ -14,6 +14,15 @@ class UserController {
 
   }
 
+  async putUser(req: Request, res: Response) {
+    try {
+      const { id, name, email } = req.body;
+      res.json(await userRN.updateUser(parseInt(id), name, email));
+    } catch (error) {
+      res.status(500).json({ code: 10, message: error });
+    }
+  }
+
   async getUserById(req: Request, res: Response) {
     const { id } = req.params;
     // Implementar lógica para buscar um usuário pelo ID

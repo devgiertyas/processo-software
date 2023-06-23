@@ -25,9 +25,21 @@ class UsuarioRN {
   }
 
   async getUserById(id: string) {
-    // Implementar lógica para buscar um usuário pelo ID usando o Prisma
     const user = await prisma.usuario.findUnique({ where: { id_usuario: parseInt(id) } });
     return user;
+  }
+
+  async updateUser(id: number, name: string, email: string) {
+    try{
+      return await prisma.usuario.update({data: {
+        nome: name,
+        email: email
+      }, where: { id_usuario: id } });
+    }
+    catch(error)
+    {
+      throw error
+    }
   }
 
   async handleLogin(email: string, password: string) {

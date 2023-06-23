@@ -16,7 +16,7 @@ import Header from "components/Headers/Header.js";
 import { useNavigate, useParams } from "react-router-dom";
 import ModalError from 'components/Alerts'
 import { ModalContext } from "Contexts/ModalContext";
-import { userHandleCreate } from "rules/userRules";
+import { userHandleCreate, userHandleGetUser, userHandleUpdate } from "rules/userRules";
 
 
 const UsersEdit = () => {
@@ -35,7 +35,13 @@ const UsersEdit = () => {
 
       if(parseInt(id))
       {
-        console.log("busca o usuário no banco", id)
+
+        userHandleGetUser(parseInt(id)).then(
+          res => {
+            setEmail(res.email)
+            setName(res.nome)
+          }
+        )
       }
 
     },[id])
@@ -54,13 +60,13 @@ const UsersEdit = () => {
         return;
       }
 
-      if(!password)
+      if(!password && !id)
       {
         openModal('Por favor, informe a senha');
         return;
       }
 
-      if(password !== confirmPassword)
+      if(password !== confirmPassword && !id)
       {
         openModal('As senhas não coincidem.');
         return;
@@ -68,30 +74,21 @@ const UsersEdit = () => {
 
       if(parseInt(id))
       {
-        //Update
+        userHandleUpdate(parseInt(id), name, email).then(() => {
+          navigate("/admin/users")
+        })
       }
       else
       {
         
         userHandleCreate(name, email, password).then((response) => {
-         
+          navigate("/admin/users")
         }).catch((error) => {
           openModal(error.message)
         }
 
        )
       }
-
-
-      //const user = await userHandleLogin(email, password)
-
-      // if(!user)
-      // {
-      //   openModal('Email ou senha incorretos.');
-      //   return;
-      // }
-
-
     }
 
     return (
@@ -103,7 +100,7 @@ const UsersEdit = () => {
           <div className="col">
             <Card className="shadow">
               <CardHeader className="border-0 d-flex justify-content-between">
-                <h3 className="mb-0">Cadastro de Usuários</h3>
+                <h3 className="mb-0"> {id ? 'Edição' : 'Cadastro'} de Usuários</h3>
               </CardHeader>
               <CardBody>
                 <Row>
@@ -130,6 +127,8 @@ const UsersEdit = () => {
                     type="email"/>
                    </FormGroup>
                  </Col>
+                 {!id && (
+                  <Fragment>
                  <Col xs="12" xl="12" lg="12">
                    <FormGroup>
                     <Label>
@@ -154,6 +153,8 @@ const UsersEdit = () => {
                     placeholder="Confirme a senha"/>
                    </FormGroup>
                  </Col>
+                 </Fragment>
+                 )}
                 </Row>
               </CardBody>
               <CardFooter className="py-4">
