@@ -1,14 +1,28 @@
-import Index from "views/Index.js";
-//import Profile from "views/examples/Profile.js";
-//import Maps from "views/examples/Maps.js";
-//import Register from "views/examples/Register.js";
-import Login from "views/examples/Login.js";
-//import Tables from "views/examples/Tables.js";
-//import Icons from "views/examples/Icons.js";
+import Login from "views/login";
+import Icons from "views/examples/Icons.js";
 import Users from "views/users";
 import UsersEdit from "views/users/AddUsers";
+import ContactsEdit from "views/contacts/AddContacts";
+import Contacts from 'views/contacts'
 
 var routes = [
+    {
+    path: "/contacts",
+    name: "Contatos",
+    icon: "ni ni-circle-08 text-primary",
+    component: <Contacts />,
+    layout: "/admin",
+    },
+    {
+      path: "/contacts/edit",
+      component: <ContactsEdit />,
+      layout: "/admin",
+    },
+    {
+      path: "/contacts/edit/:id",
+      component: <ContactsEdit />,
+      layout: "/admin",
+    },
     {
     path: "/users",
     name: "Usuarios",
@@ -26,48 +40,13 @@ var routes = [
     component: <UsersEdit />,
     layout: "/admin",
   },
-  // {
-  //   path: "/contacts",
-  //   name: "Contatos",
-  //   icon: "ni ni-ni-single-02 text-info",
-  //   component: <Tables />,
-  //   layout: "/admin",
-  // },
-  // {
-  //   path: "/index",
-  //   name: "Dashboard",
-  //   icon: "ni ni-tv-2 text-primary",
-  //   component: <Index />,
-  //   layout: "/admin",
-  // },
-  // {
-  //   path: "/icons",
-  //   name: "Icons",
-  //   icon: "ni ni-planet text-blue",
-  //   component: <Icons />,
-  //   layout: "/admin",
-  // },
-  // {
-  //   path: "/maps",
-  //   name: "Maps",
-  //   icon: "ni ni-pin-3 text-orange",
-  //   component: <Maps />,
-  //   layout: "/admin",
-  // },
-  // {
-  //   path: "/user-profile",
-  //   name: "User Profile",
-  //   icon: "ni ni-single-02 text-yellow",
-  //   component: <Profile />,
-  //   layout: "/admin",
-  // },
-  // {
-  //   path: "/tables",
-  //   name: "Tables",
-  //   icon: "ni ni-bullet-list-67 text-red",
-  //   component: <Tables />,
-  //   layout: "/admin",
-  // },
+  {
+    path: "/icons",
+    name: "Icons",
+    icon: "ni ni-planet text-blue",
+    component: <Icons />,
+    layout: "/admin",
+  },
   {
     path: "/login",
     name: "Login",
@@ -75,12 +54,5 @@ var routes = [
     component: <Login />,
     layout: "/auth",
   },
-  // {
-  //   path: "/register",
-  //   name: "Register",
-  //   icon: "ni ni-circle-08 text-pink",
-  //   component: <Register />,
-  //   layout: "/auth",
-  // },
 ];
 export default routes;

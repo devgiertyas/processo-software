@@ -1,12 +1,8 @@
 {
-  "name": "argon-dashboard-react",
+  "name": "send-messages",
   "version": "1.2.3",
-  "description": "React version of Argon Dashboard by Creative Tim",
+  "description": "React version for send messag",
   "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/creativetimofficial/argon-dashboard-react.git"
-  },
   "keywords": [
     "react",
     "reactjs",
@@ -17,12 +13,8 @@
     "argon-dashboard",
     "argon-dashboard-react"
   ],
-  "author": "Creative Tim",
+  "author": "Natã",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/creativetimofficial/argon-dashboard-react/issues"
-  },
-  "homepage": "https://demos.creative-tim.com/argon-dashboard-react/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -48,6 +40,7 @@
     "bootstrap": "4.6.2",
     "chart.js": "2.9.4",
     "classnames": "2.3.2",
+    "cleave.js": "^1.6.0",
     "moment": "2.29.4",
     "nouislider": "15.4.0",
     "react": ">=16.0.0",
