@@ -17,9 +17,10 @@ import { useNavigate } from "react-router-dom";
 import { contactHandleGet } from "rules/contactRules";
 import { ModalContext } from "Contexts/ModalContext";
 import ModalError from "components/Alerts";
+import { ModalSendMessage } from "components/ModalSengMessage";
 
 const Users = () => {
-    const { openModal } = useContext(ModalContext);
+  const { openModal } = useContext(ModalContext);
   const navigate = useNavigate()
   
   const [listContacts, setListContacts] = useState([])
@@ -32,13 +33,15 @@ const Users = () => {
 
   const [selectedRows, setSelectedRows] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
+  const [openSendMessage, setOpenSendMessage] = useState(false);
 
-  const toggleRowSelection = (rowId) => {
+  const toggleRowSelection = (contact) => {
     let updatedSelectedRows = [...selectedRows];
-    if (updatedSelectedRows.includes(rowId)) {
-      updatedSelectedRows = updatedSelectedRows.filter((id) => id !== rowId);
+    const index = updatedSelectedRows.findIndex((row) => row.id_contato === contact.id_contato);
+    if (index !== -1) {
+      updatedSelectedRows.splice(index, 1);
     } else {
-      updatedSelectedRows.push(rowId);
+      updatedSelectedRows.push(contact);
     }
     setSelectedRows(updatedSelectedRows);
   };
@@ -47,8 +50,7 @@ const Users = () => {
     if (selectAll) {
       setSelectedRows([]);
     } else {
-      const allRowIds = listContacts.map((contact) => contact.id_contato);
-      setSelectedRows(allRowIds);
+      setSelectedRows([...listContacts]);
     }
     setSelectAll(!selectAll);
   };
@@ -61,11 +63,14 @@ const Users = () => {
      return
     }
 
+    setOpenSendMessage(true)
+
    }
 
     return (
     <Fragment>
         <ModalError/>
+        <ModalSendMessage isOpen={openSendMessage} setIsOpen={setOpenSendMessage} contactsSelecteds={selectedRows} />
         <Header/>
       <Container className="mt--7" fluid>
       <Row>
@@ -81,7 +86,8 @@ const Users = () => {
               <Table className="align-items-center table-flush h-100" responsive>
                 <thead className="thead-light">
                   <tr>
-                    <th scope="col"> <Input
+                    <th scope="col"> 
+                    <Input
                         className="ml-1"
                         type="checkbox"
                         checked={selectAll}
@@ -103,8 +109,8 @@ const Users = () => {
                           <input
                             className="ml-1"
                             type="checkbox"
-                            checked={selectedRows.includes(contact.id_contato)}
-                            onChange={() => toggleRowSelection(contact.id_contato)}
+                            checked={selectedRows.some((row) => row.id_contato === contact.id_contato)}
+                            onChange={() => toggleRowSelection(contact)}
                           />
                         </th>   
                         <th scope="row">

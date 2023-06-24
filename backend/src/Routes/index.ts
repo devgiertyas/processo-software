@@ -1,10 +1,12 @@
 import express from 'express';
 import UserController from '../controllers/UserController';
 import ContactController from '../controllers/ContactController'
+import MessageController from '../controllers/MessageController'
 
 const router = express.Router();
 const userController = new UserController();
 const contactController = new ContactController();
+const messageController = new MessageController();
 
 
 router.get('/users', userController.getAllUsers);
@@ -17,6 +19,9 @@ router.get('/contacts', contactController.getAllContacts);
 router.get('/contacts/:id', contactController.getContactById);
 router.post('/contacts', contactController.postCreateContact);
 router.put('/contacts/:id', contactController.putContact);
+
+router.post('/message', messageController.sendMessage);
+
 
 
 export default router;

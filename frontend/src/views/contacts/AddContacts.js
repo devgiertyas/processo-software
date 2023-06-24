@@ -75,7 +75,6 @@ const ContactsEdit = () => {
         }).catch((error) => {
           openModal(error.message)
         }
-
        )
       }
     }

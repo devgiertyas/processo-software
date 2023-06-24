@@ -29,6 +29,8 @@ model mensagem_contato {
   id_mensagem_contato  Int     @id @default(autoincrement())
   contato    contato    @relation(fields: [id_contato], references: [id_contato], onDelete: Cascade)
   id_contato  Int
+  mensagem    mensagem    @relation(fields: [id_mensagem], references: [id_mensagem], onDelete: Cascade)
+  id_mensagem  Int
   meio_envio String            @db.VarChar(20)
 }
 
@@ -39,6 +41,7 @@ model mensagem {
   email String
   envio envio[]
   agendamento_mensagem agendamento_mensagem[]
+  mensagem_contato mensagem_contato[]
 }
 
 model envio {
