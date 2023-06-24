@@ -21,7 +21,6 @@ class EmailRN {
         };
       
         try {
-            console.log("msg",msg)
           await sgMail.send(msg);
 
           const messageRN = new MensagemRN();
