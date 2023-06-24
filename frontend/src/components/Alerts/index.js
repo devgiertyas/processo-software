@@ -6,7 +6,7 @@ const ModalError = () => {
   const { modalOpen, modalContent, closeModal } = useContext(ModalContext);
 
   return (
-    <Modal isOpen={modalOpen} toggle={closeModal} className='modal-dialog-centered' fade={false}>
+    <Modal isOpen={modalOpen} toggle={closeModal} className='modal-dialog-centered' fade={false} modalClassName="primary">
       <ModalHeader toggle={closeModal}>Atenção!</ModalHeader>
       <ModalBody>{modalContent}</ModalBody>
       <ModalFooter>

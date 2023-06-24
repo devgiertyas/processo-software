@@ -49,7 +49,7 @@ const Users = () => {
                   {
                     listUsers.map(user => {
                       return (
-                        <tr>
+                        <tr key={user.id_usuario}>
                         <th scope="row">
                          <span className="mb-0 text-sm">
                           {user.nome}

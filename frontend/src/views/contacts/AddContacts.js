@@ -14,14 +14,14 @@ import {
    } from "reactstrap"
 import Header from "components/Headers/Header.js";
 import { useNavigate, useParams } from "react-router-dom";
-import ModalError from 'components/Alerts'
 import { ModalContext } from "Contexts/ModalContext";
+import ModalError from "components/Alerts";
 import Cleave from "cleave.js/react";
 import 'cleave.js/dist/addons/cleave-phone.br'
 import { contactHandleGetContact, contactHandleCreate,contactHandleUpdate } from "rules/contactRules";
 
 const ContactsEdit = () => {
-  const { openModal } = useContext(ModalContext);
+    const { openModal } = useContext(ModalContext);
     const navigate = useNavigate()
 
     const {id} = useParams()

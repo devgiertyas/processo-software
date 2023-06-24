@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react"
+import { Fragment, useEffect, useState,useContext } from "react"
 import {   
     Card,
     CardHeader,
@@ -10,12 +10,16 @@ import {
     Table,
     Container,
     Row,
+    Input,
    } from "reactstrap"
 import Header from "components/Headers/Header.js";
 import { useNavigate } from "react-router-dom";
 import { contactHandleGet } from "rules/contactRules";
+import { ModalContext } from "Contexts/ModalContext";
+import ModalError from "components/Alerts";
 
 const Users = () => {
+    const { openModal } = useContext(ModalContext);
   const navigate = useNavigate()
   
   const [listContacts, setListContacts] = useState([])
@@ -26,8 +30,42 @@ const Users = () => {
     })
   },[])
 
+  const [selectedRows, setSelectedRows] = useState([]);
+  const [selectAll, setSelectAll] = useState(false);
+
+  const toggleRowSelection = (rowId) => {
+    let updatedSelectedRows = [...selectedRows];
+    if (updatedSelectedRows.includes(rowId)) {
+      updatedSelectedRows = updatedSelectedRows.filter((id) => id !== rowId);
+    } else {
+      updatedSelectedRows.push(rowId);
+    }
+    setSelectedRows(updatedSelectedRows);
+  };
+
+  const toggleSelectAll = () => {
+    if (selectAll) {
+      setSelectedRows([]);
+    } else {
+      const allRowIds = listContacts.map((contact) => contact.id_contato);
+      setSelectedRows(allRowIds);
+    }
+    setSelectAll(!selectAll);
+  };
+
+   const handleSendMessage = () => {
+
+    if(selectedRows.length === 0)
+    {
+     openModal("Nenhum contato selecionado.")   
+     return
+    }
+
+   }
+
     return (
     <Fragment>
+        <ModalError/>
         <Header/>
       <Container className="mt--7" fluid>
       <Row>
@@ -36,13 +74,20 @@ const Users = () => {
               <CardHeader className="border-0 d-flex justify-content-between">
                 <h3 className="mb-0">Contatos</h3>
                 <div>
-                <Button color="primary" >Enviar Mensagem</Button>
+                <Button color="primary" onClick={() => handleSendMessage()}>Enviar Mensagem</Button>
                 <Button color="primary" onClick={() => navigate('/admin/contacts/edit')} >Novo Contato</Button>
                 </div>
               </CardHeader>
               <Table className="align-items-center table-flush h-100" responsive>
                 <thead className="thead-light">
                   <tr>
+                    <th scope="col"> <Input
+                        className="ml-1"
+                        type="checkbox"
+                        checked={selectAll}
+                        onChange={toggleSelectAll}
+                    />
+                    </th>
                     <th scope="col">Nome</th>
                     <th scope="col">Email</th>
                     <th scope="col">Telefone</th>
@@ -53,7 +98,15 @@ const Users = () => {
                   {
                     listContacts.map(contact => {
                       return (
-                        <tr>
+                        <tr key={contact.id_contato}>
+                        <th>
+                          <input
+                            className="ml-1"
+                            type="checkbox"
+                            checked={selectedRows.includes(contact.id_contato)}
+                            onChange={() => toggleRowSelection(contact.id_contato)}
+                          />
+                        </th>   
                         <th scope="row">
                          <span className="mb-0 text-sm">
                           {contact.nome}

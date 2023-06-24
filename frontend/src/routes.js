@@ -1,5 +1,4 @@
 import Login from "views/login";
-import Icons from "views/examples/Icons.js";
 import Users from "views/users";
 import UsersEdit from "views/users/AddUsers";
 import ContactsEdit from "views/contacts/AddContacts";
@@ -38,13 +37,6 @@ var routes = [
   {
     path: "/users/edit/:id",
     component: <UsersEdit />,
-    layout: "/admin",
-  },
-  {
-    path: "/icons",
-    name: "Icons",
-    icon: "ni ni-planet text-blue",
-    component: <Icons />,
     layout: "/admin",
   },
   {
