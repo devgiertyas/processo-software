@@ -22,6 +22,14 @@ const Admin = (props) => {
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {
       if (prop.layout === "/admin") {
+        
+        const isLogged = localStorage.getItem('userLogged')
+
+        if(!isLogged)
+        {
+          return (<Route path="*" element={<Navigate to="/auth" replace />} />)
+        }
+
         return (
           <Route path={prop.path} element={prop.component} key={key} exact />
         );

@@ -39,7 +39,7 @@ const Login = () => {
       }
       else{
         localStorage.setItem("userLogged", user.email)
-        navigate("/admin/users");
+        navigate("/admin/contacts");
       }    
   }
 
