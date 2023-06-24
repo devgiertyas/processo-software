@@ -38,6 +38,7 @@ const ContactsEdit = () => {
           res => {
             setEmail(res.email)
             setName(res.nome)
+            setPhone(res.celular)
           }
         )
       }
@@ -69,7 +70,7 @@ const ContactsEdit = () => {
       }
       else
       {     
-        contactHandleCreate(name, email).then((response) => {
+        contactHandleCreate(name, email, phone).then((response) => {
           navigate("/admin/contacts")
         }).catch((error) => {
           openModal(error.message)
@@ -131,7 +132,7 @@ const ContactsEdit = () => {
                 </Row>
               </CardBody>
               <CardFooter className="py-4">
-              <Button color="secondary" outline onClick={() =>  navigate("/admin/users")} >Voltar</Button>
+              <Button color="secondary" outline onClick={() =>  navigate("/admin/contacts")} >Voltar</Button>
               <Button color="primary" onClick={() =>  handleSaveUser()} >Salvar</Button>
               </CardFooter>
             </Card>

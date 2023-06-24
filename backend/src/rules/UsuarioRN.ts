@@ -14,6 +14,11 @@ class UsuarioRN {
     const user = await prisma.usuario.findFirst({where: {
       email: email,
       senha: this.criptografy(password)
+    },
+    select:{
+    id_usuario: true,
+    email: true,
+    nome: true,
     }})
     
     return user;
@@ -34,7 +39,11 @@ class UsuarioRN {
   }
 
   async getUserById(id: string) {
-    const user = await prisma.usuario.findUnique({ where: { id_usuario: parseInt(id) } });
+    const user = await prisma.usuario.findUnique({ where: { id_usuario: parseInt(id) },  select:{
+      id_usuario: true,
+      email: true,
+      nome: true,
+    } });
     return user;
   }
 

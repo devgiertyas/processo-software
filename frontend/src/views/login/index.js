@@ -37,9 +37,10 @@ const Login = () => {
         openModal('Email ou senha incorretos.');
         return;
       }
-
-      navigate("/admin/users");
-      
+      else{
+        localStorage.setItem("userLogged", user.email)
+        navigate("/admin/users");
+      }    
   }
 
   return (

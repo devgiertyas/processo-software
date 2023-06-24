@@ -13,7 +13,7 @@ import {
    } from "reactstrap"
 import Header from "components/Headers/Header.js";
 import { useNavigate } from "react-router-dom";
-import { userHandleGet } from "rules/userRules";
+import { contactHandleGet } from "rules/contactRules";
 
 const Users = () => {
   const navigate = useNavigate()
@@ -21,7 +21,7 @@ const Users = () => {
   const [listContacts, setListContacts] = useState([])
 
   useEffect(() => {
-    userHandleGet().then(res => {
+    contactHandleGet().then(res => {
         setListContacts(res)
     })
   },[])
@@ -35,7 +35,10 @@ const Users = () => {
             <Card className="shadow">
               <CardHeader className="border-0 d-flex justify-content-between">
                 <h3 className="mb-0">Contatos</h3>
+                <div>
+                <Button color="primary" >Enviar Mensagem</Button>
                 <Button color="primary" onClick={() => navigate('/admin/contacts/edit')} >Novo Contato</Button>
+                </div>
               </CardHeader>
               <Table className="align-items-center table-flush h-100" responsive>
                 <thead className="thead-light">
@@ -48,18 +51,18 @@ const Users = () => {
                 </thead>
                 <tbody>
                   {
-                    listContacts.map(user => {
+                    listContacts.map(contact => {
                       return (
                         <tr>
                         <th scope="row">
                          <span className="mb-0 text-sm">
-                          {user.nome}
+                          {contact.nome}
                           </span>
                         </th>
-                        <td>{user.email}</td>
-                        <td>54 999-99900</td>
+                        <td>{contact.email}</td>
+                        <td>{contact.celular}</td>
                         <td>
-                          <Button onClick={() => navigate(`/admin/contacts/edit/${user.id_usuario}`)} >Editar</Button>
+                          <Button onClick={() => navigate(`/admin/contacts/edit/${contact.id_contato}`)} >Editar</Button>
                         </td>
                       </tr>
                       )
@@ -89,22 +92,6 @@ const Users = () => {
                         onClick={(e) => e.preventDefault()}
                       >
                         1
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        2 <span className="sr-only">(current)</span>
-                      </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        3
                       </PaginationLink>
                     </PaginationItem>
                     <PaginationItem>
