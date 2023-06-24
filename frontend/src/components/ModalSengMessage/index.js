@@ -4,6 +4,7 @@ import Select from 'react-select'
 import { ModalContext } from "Contexts/ModalContext";
 import ModalError from "components/Alerts";
 import {messageHandleSend} from '../../rules/messageRules'
+import { toast } from 'react-toastify';
 
 const ModalSendMessage = ({isOpen, setIsOpen, contactsSelecteds}) => {
     const { openModal } = useContext(ModalContext);
@@ -39,11 +40,13 @@ const ModalSendMessage = ({isOpen, setIsOpen, contactsSelecteds}) => {
         await messageHandleSend(payloadMessage).then(res => {
           if(res.success)
           {
-            setIsOpen(false)
+            toast.success('Mensagem enviada com sucesso!', { autoClose: 3000 });
+            setMessage("")
+            setSubject("")
           }
         }).catch((error) => {
           openModal(error.message)
-        })
+        }).finally(() => {setIsOpen(false)})
 
     }
 

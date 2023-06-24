@@ -17,7 +17,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import ModalError from 'components/Alerts'
 import { ModalContext } from "Contexts/ModalContext";
 import { userHandleCreate, userHandleGetUser, userHandleUpdate } from "rules/userRules";
-
+import { toast } from 'react-toastify';
 
 const UsersEdit = () => {
   const { openModal } = useContext(ModalContext);
@@ -68,12 +68,14 @@ const UsersEdit = () => {
       {
         userHandleUpdate(parseInt(id), name, email).then(() => {
           navigate("/admin/users")
+          toast.success('Salvo com sucesso!', { autoClose: 3000 });
         })
       }
       else
       {     
         userHandleCreate(name, email, password).then((response) => {
           navigate("/admin/users")
+          toast.success('Salvo com sucesso!', { autoClose: 3000 });
         }).catch((error) => {
           openModal(error.message)
         }

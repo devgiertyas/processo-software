@@ -7,10 +7,10 @@ const ModalError = () => {
 
   return (
     <Modal isOpen={modalOpen} toggle={closeModal} className='modal-dialog-centered' fade={false} modalClassName="primary">
-      <ModalHeader toggle={closeModal}>Atenção!</ModalHeader>
-      <ModalBody>{modalContent}</ModalBody>
+      <ModalHeader toggle={closeModal}><h2 className='text-warning'>Atenção!</h2></ModalHeader>
+      <ModalBody className='text-warning' >{modalContent}</ModalBody>
       <ModalFooter>
-        <Button color="secondary" onClick={closeModal}>
+        <Button color="warning" onClick={closeModal}>
           Fechar
         </Button>
       </ModalFooter>

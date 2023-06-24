@@ -19,6 +19,7 @@ import ModalError from "components/Alerts";
 import Cleave from "cleave.js/react";
 import 'cleave.js/dist/addons/cleave-phone.br'
 import { contactHandleGetContact, contactHandleCreate,contactHandleUpdate } from "rules/contactRules";
+import { toast } from 'react-toastify';
 
 const ContactsEdit = () => {
     const { openModal } = useContext(ModalContext);
@@ -65,12 +66,14 @@ const ContactsEdit = () => {
       if(parseInt(id))
       {
         contactHandleUpdate(parseInt(id), name, email).then(() => {
+          toast.success('Salvo com sucesso!', { autoClose: 3000 });
           navigate("/admin/contacts")
         })
       }
       else
       {     
-        contactHandleCreate(name, email, phone).then((response) => {
+        contactHandleCreate(name, email, phone).then(() => {
+          toast.success('Salvo com sucesso!', { autoClose: 3000 });
           navigate("/admin/contacts")
         }).catch((error) => {
           openModal(error.message)

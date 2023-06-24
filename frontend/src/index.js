@@ -9,11 +9,13 @@ import "assets/scss/argon-dashboard-react.scss";
 import AdminLayout from "layouts/Admin.js";
 import AuthLayout from "layouts/Auth.js";
 import { ModalProvider } from './Contexts/ModalContext';
+import ToastContainerWrapper from "components/Alerts/toast";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <ModalProvider>
+   <ToastContainerWrapper/>
   <BrowserRouter>
     <Routes>
       <Route path="/admin/*" element={<AdminLayout />} />
